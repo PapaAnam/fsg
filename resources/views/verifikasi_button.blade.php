@@ -1,0 +1,1 @@
+<a href="<?=$link?>" class="btn btn-flat btn-primary">Verifikasi</a>

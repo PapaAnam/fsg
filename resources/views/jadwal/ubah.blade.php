@@ -1,0 +1,11 @@
+@extends('create-form')
+@section('form')
+@method('put')
+@include('datepicker',['id'=>'tanggal','label'=>'Tanggal','value'=>substr($d->waktu, 0, 10)])
+@include('timemask',['id'=>'jam','label'=>'Jam','value'=>substr($d->waktu, 11, 8)])
+@include('input',['id'=>'produk','label'=>'Produk','value'=>$d->produk])
+@include('input_number',['id'=>'fee','label'=>'Fee','value'=>$d->fee])
+@include('select',['id'=>'marketplace','label'=>'Marketplace','selectData'=>$marketplace,'selected'=>$d->id_marketplace])
+@endsection
+@include('import-datepicker')
+@include('import-timemask')
