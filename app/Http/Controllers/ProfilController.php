@@ -21,7 +21,7 @@ class ProfilController extends Controller
 			'user'=>$user,
 			'title'=>'Profil',
 			'modul'=>'Profil',
-			'active'=>null,
+			'active'=>'profile',
 			'modul_link'=>url('/'),
 			'action'=>route('profile.update'),
 			'listBank'=>Bank::selectMode(),

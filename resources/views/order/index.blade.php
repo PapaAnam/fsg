@@ -24,7 +24,9 @@
   <tr>
     <th>#</th>
     <th>ID Order</th>
+    @if(Auth::user()->role == 'admin')
     <th>Member</th>
+    @endif
     <th>Marketplace</th>
     <th>Produk</th>
     <th>Waktu</th>
@@ -38,7 +40,9 @@
   <tr>
     <th>#</th>
     <th>ID Order</th>
+    @if(Auth::user()->role == 'admin')
     <th>Member</th>
+    @endif
     <th>Marketplace</th>
     <th>Produk</th>
     <th>Waktu</th>
@@ -53,14 +57,20 @@
   <tr>
     <td>{{ $loop->iteration }}</td>
     <td>{{ $d->id_order }}</td>
+    @if(Auth::user()->role == 'admin')
     <td>{{ $d->member->nama_ktp }}</td>
+    @endif
     <td>{{ $d->jadwal->marketplace->nama }}</td>
     <td>{{ $d->jadwal->produk }}</td>
     <td>{{ $d->jadwal->waktu }}</td>
     <td align="right">{{ $d->jadwal->fee_rp }}</td>
     <td>
-      @if($d->status == 'Belum Lunas')
+      @if($d->status == 'diproses')
       <span class="label label-danger">
+        {{ $d->status }}
+      </span>
+      @elseif($d->status == 'diterima')
+      <span class="label label-warning">
         {{ $d->status }}
       </span>
       @else
@@ -75,7 +85,10 @@
       @endif
     </td>
     <td>
-      @if(Auth::user()->role == 'admin' && $d->status == 'Belum Lunas')
+      @if(Auth::user()->role == 'admin' && $d->status == 'diproses')
+      @include('diterima_button', ['link' => route('order.diterima', [$d->id])])
+      @endif
+      @if(Auth::user()->role == 'admin' && $d->status == 'diterima')
       @include('bayar_button', ['link' => route('order.bayar', [$d->id])])
       @endif
       @include('delete_button', ['link' => route('order.destroy', [$d->id])])

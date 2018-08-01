@@ -14,8 +14,9 @@ Route::middleware('auth')->group(function(){
 	Route::resource('order', 'OrderController')->except('show');
 	Route::get('/order/export-excel', 'OrderController@excel');
 	Route::get('/bayar/{order}', 'OrderController@bayar')->name('order.bayar');
+	Route::get('/diterima/{order}', 'OrderController@diterima')->name('order.diterima');
 	Route::post('/bayar/{order}', 'OrderController@bayarStore')->name('bayar.store');
-	Route::get('/keluar', 'Auth\LoginController@keluar');
+	Route::get('/keluar', 'Auth\LoginController@keluar')->name('keluar');
 	Route::get('/member/verifikasi/{member}', 'MemberController@verifikasi')->name('member.verifikasi');
 	Route::get('/profil', 'ProfilController@index')->name('profile');
 	Route::put('/profil', 'ProfilController@update')->name('profile.update');

@@ -70,7 +70,7 @@ class OrderController extends Controller
             'id_order'=>$request->id_order,
             'id_member'=>Auth::user()->member()->first()->id
         ]);
-        return redirect()->route('order.index')->with('success_msg', 'Order berhasil dimasukkan');
+        return redirect()->route('order.index')->with('success_msg', 'Pesanan berhasil dimasukkan');
     }
 
     /**
@@ -116,41 +116,7 @@ class OrderController extends Controller
     public function destroy(Order $order)
     {
         $order->delete();
-        return redirect()->route('order.index')->with('success_msg', 'Order berhasil dihapus');
-    }
-
-    public function daftar(Request $r)
-    {
-        $r->validate([
-            'email'=>'required|email|unique:users',
-            'nama_ktp'=>'required|string',
-            'no_telp'=>'required|numeric',
-            'no_rek'=>'required|numeric',
-            'atas_nama'=>'required|string',
-            'bank'=>'required',
-            'password'=>'required|confirmed|min:6',
-            'password_confirmation'=>'required'
-        ]);
-        $user = User::create([
-            'email'=>$r->email,
-            'password'=>bcrypt($r->password),
-        ]);
-        $user->member()->create([
-            'nama_ktp'=>$r->nama_ktp,
-            'no_telp'=>$r->no_telp,
-            'no_rek'=>$r->no_rek,
-            'atas_nama'=>$r->atas_nama,
-            'id_bank'=>$r->bank,
-        ]);
-        return redirect()->back()->with('success_msg', 'Daftar berhasil dilakukan, menunggu verifikasi admin');
-    }
-
-    public function verifikasi(Request $r, Order $order)
-    {
-        $order->user()->update([
-            'status'=>'aktif',
-        ]);
-        return redirect()->back()->with('success_msg','Order berhasil diverifikasi');
+        return redirect()->route('order.index')->with('success_msg', 'Pesanan berhasil dihapus');
     }
 
     public function bayar(Order $order)
@@ -217,5 +183,13 @@ class OrderController extends Controller
             });
         })->download('xlsx');
 
+    }
+
+    public function diterima(Order $order)
+    {
+        $order->update([
+            'status'=>'diterima',
+        ]);
+        return redirect()->back()->with('success_msg','Pesanan berhasil diterima');
     }
 }

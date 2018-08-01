@@ -11,7 +11,7 @@ class JadwalController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('myrole:admin')->except('getData');
+        $this->middleware('myrole:admin')->except('getData','index');
     }
 
     /**
@@ -19,9 +19,15 @@ class JadwalController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $r)
     {
+        $user = $r->user();
+        $data = [];
+        if($user->role == 'admin'){
         $data = Jadwal::all();
+        }else{
+            $data = Jadwal::where('waktu', '>=', date('Y-m-d'))->orderBy('waktu', 'desc')->get();
+        }
         return view('jadwal.index', [
             'data'      => $data,
             'title'     => 'List Jadwal Flash Sale',

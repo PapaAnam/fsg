@@ -47,15 +47,32 @@
           <i class="fa fa-users"></i> <span>Member</span>
         </a>
       </li>
+      @endif
       <li class="{{ $active == 'jadwal.index' ? 'active' : '' }}">
         <a href="{{ route('jadwal.index') }}">
           <i class="fa fa-calendar-check-o"></i> <span>Jadwal Flash Sale</span>
         </a>
       </li>
-      @endif
       <li class="{{ $active == 'order.index' ? 'active' : '' }}">
         <a href="{{ route('order.index') }}">
-          <i class="fa fa-pie-chart"></i> <span>Order</span>
+          <i class="fa fa-pie-chart"></i> <span>Pesanan</span>
+        </a>
+      </li>
+      @if(Auth::user()->role == 'member')
+      <li class="{{ $active == 'order.create' ? 'active' : '' }}">
+        <a href="{{ route('order.create') }}">
+          <i class="fa fa-plus"></i> <span>Input Pesanan</span>
+        </a>
+      </li>
+      @endif
+      <li class="{{ $active == 'profile' ? 'active' : '' }}">
+        <a href="{{ route('profile') }}">
+          <i class="fa fa-user"></i> <span>Profil</span>
+        </a>
+      </li>
+      <li class="{{ $active == 'keluar' ? 'active' : '' }}">
+        <a href="{{ route('keluar') }}">
+          <i class="fa fa-sign-out"></i> <span>Keluar</span>
         </a>
       </li>
       {{-- fa-balance-scale --}}

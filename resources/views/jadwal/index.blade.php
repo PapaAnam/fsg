@@ -7,7 +7,9 @@
     <th>Produk</th>
     <th>Marketplace</th>
     <th>Fee</th>
+    @if(Auth::user()->role == 'admin')
     <th>Aksi</th>
+    @endif
   </tr>
 </thead>
 <tfoot>
@@ -17,7 +19,9 @@
     <th>Produk</th>
     <th>Marketplace</th>
     <th>Fee</th>
+    @if(Auth::user()->role == 'admin')
     <th>Aksi</th>
+    @endif
   </tr>
 </tfoot>
 <tbody>
@@ -28,10 +32,12 @@
     <td>{{ $d->produk }}</td>
     <td>{{ $d->marketplace->nama }}</td>
     <td align="right">{{ $d->fee_rp }}</td>
+    @if(Auth::user()->role == 'admin')
     <td>
       @include('edit_button', ['link' => route('jadwal.edit', [$d->id])])
       @include('delete_button', ['link' => route('jadwal.destroy', [$d->id])])
     </td>
+    @endif
   </tr>
   @endforeach
 </tbody>
