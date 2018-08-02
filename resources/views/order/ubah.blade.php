@@ -2,7 +2,7 @@
 @section('form')
 @method('put')
 @include('input_number',['required'=>true,'id'=>'id_order','label'=>'ID Order','value'=>$d->id_order])
-@include('input_number',['required'=>true,'id'=>'no_resi','label'=>'No Resi','value'=>$d->no_resi])
+@include('input',['required'=>true,'id'=>'no_resi','label'=>'No Resi','value'=>$d->no_resi])
 @include('select',['required'=>true,'id'=>'kurir','label'=>'Pilih Kurir','selectData'=>$kurir,'selected'=>$d->kurir])
 @include('select',['required'=>true,'id'=>'jadwal','label'=>'Pilih ID Jadwal','selectData'=>$jadwal,'selected'=>$d->id_jadwal])
 @include('input',['required'=>true,'readonly'=>true,'id'=>'produk','label'=>'Produk'])

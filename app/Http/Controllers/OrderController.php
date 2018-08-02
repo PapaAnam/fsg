@@ -50,6 +50,7 @@ class OrderController extends Controller
             ['text'=>'RPX HOLDINGS','value'=>'RPX HOLDINGS'],
             ['text'=>'SI CEPAT','value'=>'SI CEPAT'],
             ['text'=>'ESL','value'=>'ESL'],
+            ['text'=>'LAZADA EXPRESS','value'=>'LAZADA EXPRESS'],
         ];
     }
 
@@ -83,7 +84,7 @@ class OrderController extends Controller
             'jadwal'=>'required',
             'id_order'=>'required|numeric',
             'kurir'=>'required',
-            'no_resi'=>'required|numeric',
+            'no_resi'=>'required',
         ]);
         Order::create([
             'id_jadwal'=>$request->jadwal,
@@ -142,7 +143,7 @@ class OrderController extends Controller
             'jadwal'=>'required',
             'id_order'=>'required|numeric',
             'kurir'=>'required',
-            'no_resi'=>'required|numeric',
+            'no_resi'=>'required',
         ]);
         $order->update([
             'id_jadwal'=>$request->jadwal,
