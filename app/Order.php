@@ -13,6 +13,8 @@ class Order extends Model
 		'id_jadwal',
 		'status',
 		'bukti',
+		'no_resi',
+		'kurir',
 	];
 
 	public function member()

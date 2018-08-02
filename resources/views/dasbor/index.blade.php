@@ -99,7 +99,7 @@
         </div>
       </div>
       @if(count($hariIni) > 0)
-      <div class="{{ Auth::user()->role == 'member' ? 'col-md-6' : 'col-xs-12' }}">
+      <div class="col-xs-12">
         <div class="box box-danger">
           <div class="box-header">
             <h3 class="box-title">Flash Sale Hari Ini</h3>
@@ -115,9 +115,9 @@
       </div>
       @endif
       @if(Auth::user()->role == 'member')
-      <div class="col-md-6">
+      <div class="col-md-12">
         <div class="box box-warning">
-          <div class="box-header">
+          <div class="box-header with-border">
             <h3 class="box-title">Pesanan Anda</h3>
           </div>
           <div class="box-body">
@@ -129,6 +129,8 @@
                   <th>Produk</th>
                   <th>Waktu</th>
                   <th>Fee</th>
+                  <th>Kurir</th>
+                  <th>No Resi</th>
                   <th>Status</th>
                 </tr>
               </thead>
@@ -139,6 +141,8 @@
                   <th>Produk</th>
                   <th>Waktu</th>
                   <th>Fee</th>
+                  <th>Kurir</th>
+                  <th>No Resi</th>
                   <th>Status</th>
                 </tr>
               </tfoot>
@@ -150,6 +154,8 @@
                   <td>{{ $d->jadwal->produk }}</td>
                   <td>{{ $d->jadwal->waktu }}</td>
                   <td align="right">{{ $d->jadwal->fee_rp }}</td>
+                  <td>{{ $d->kurir }}</td>
+                  <td>{{ $d->no_resi }}</td>
                   <td>
                     @if($d->status == 'diproses')
                     <span class="label label-danger">

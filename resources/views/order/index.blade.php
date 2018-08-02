@@ -29,6 +29,8 @@
     @endif
     <th>Marketplace</th>
     <th>Produk</th>
+    <th>No Resi</th>
+    <th>Kurir</th>
     <th>Waktu</th>
     <th>Fee</th>
     <th>Status</th>
@@ -45,6 +47,8 @@
     @endif
     <th>Marketplace</th>
     <th>Produk</th>
+    <th>No Resi</th>
+    <th>Kurir</th>
     <th>Waktu</th>
     <th>Fee</th>
     <th>Status</th>
@@ -62,6 +66,8 @@
     @endif
     <td>{{ $d->jadwal->marketplace->nama }}</td>
     <td>{{ $d->jadwal->produk }}</td>
+    <td>{{ $d->no_resi }}</td>
+    <td>{{ $d->kurir }}</td>
     <td>{{ $d->jadwal->waktu }}</td>
     <td align="right">{{ $d->jadwal->fee_rp }}</td>
     <td>
@@ -85,6 +91,9 @@
       @endif
     </td>
     <td>
+      @if(Auth::user()->role == 'member' && $d->status == 'diproses')
+      @include('edit_button', ['link' => route('order.edit', [$d->id])])
+      @endif
       @if(Auth::user()->role == 'admin' && $d->status == 'diproses')
       @include('diterima_button', ['link' => route('order.diterima', [$d->id])])
       @endif

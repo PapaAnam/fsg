@@ -14,7 +14,7 @@ class OrderController extends Controller
 
     public function __construct()
     {
-        $this->middleware('myrole:member')->only('create', 'store');
+        $this->middleware('myrole:member')->only('create', 'store','edit','update');
         $this->middleware('myrole:admin')->only('bayar', 'bayarStore','excel');
     }
 
@@ -36,6 +36,23 @@ class OrderController extends Controller
         ]);
     }
 
+    private function getKurir()
+    {
+        return [
+            ['text'=>'Pilih Kurir','value'=>''],
+            ['text'=>'JNE','value'=>'JNE'],
+            ['text'=>'J&T','value'=>'J&T'],
+            ['text'=>'POS INDONESIA','value'=>'POS INDONESIA'],
+            ['text'=>'WAHANA','value'=>'WAHANA'],
+            ['text'=>'GO SEND','value'=>'GO SEND'],
+            ['text'=>'TIKI','value'=>'TIKI'],
+            ['text'=>'PANDU LOGISTICS','value'=>'PANDU LOGISTICS'],
+            ['text'=>'RPX HOLDINGS','value'=>'RPX HOLDINGS'],
+            ['text'=>'SI CEPAT','value'=>'SI CEPAT'],
+            ['text'=>'ESL','value'=>'ESL'],
+        ];
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -44,12 +61,13 @@ class OrderController extends Controller
     public function create()
     {
         return view('order.tambah', [
-            'title'         => 'Tambah Order',
+            'title'         => 'Tambah Pesanan',
             'modul_link'    => route('order.index'),
-            'modul'         => 'Order',
+            'modul'         => 'Pesanan',
             'action'        => route('order.store'),
             'active'        => 'order.index',
             'jadwal'=>Jadwal::selectMode(),
+            'kurir'=>$this->getKurir()
         ]);
     }
 
@@ -63,12 +81,16 @@ class OrderController extends Controller
     {
         $request->validate([
             'jadwal'=>'required',
-            'id_order'=>'required|numeric'
+            'id_order'=>'required|numeric',
+            'kurir'=>'required',
+            'no_resi'=>'required|numeric',
         ]);
         Order::create([
             'id_jadwal'=>$request->jadwal,
             'id_order'=>$request->id_order,
-            'id_member'=>Auth::user()->member()->first()->id
+            'id_member'=>Auth::user()->member()->first()->id,
+            'kurir'=>$request->kurir,
+            'no_resi'=>$request->no_resi,
         ]);
         return redirect()->route('order.index')->with('success_msg', 'Pesanan berhasil dimasukkan');
     }
@@ -92,7 +114,19 @@ class OrderController extends Controller
      */
     public function edit(Order $order)
     {
-        //
+        if($order->id_member !== Auth::user()->member()->first()->id){
+            abort(404);
+        }
+        return view('order.ubah', [
+            'title'         => 'Ubah Pesanan',
+            'modul_link'    => route('order.index'),
+            'modul'         => 'Pesanan',
+            'action'        => route('order.update',[$order->id]),
+            'active'        => 'order.index',
+            'jadwal'=>Jadwal::selectMode(),
+            'kurir'=>$this->getKurir(),
+            'd'=>$order,
+        ]);
     }
 
     /**
@@ -104,7 +138,19 @@ class OrderController extends Controller
      */
     public function update(Request $request, Order $order)
     {
-        //
+        $request->validate([
+            'jadwal'=>'required',
+            'id_order'=>'required|numeric',
+            'kurir'=>'required',
+            'no_resi'=>'required|numeric',
+        ]);
+        $order->update([
+            'id_jadwal'=>$request->jadwal,
+            'id_order'=>$request->id_order,
+            'kurir'=>$request->kurir,
+            'no_resi'=>$request->no_resi,
+        ]);
+        return redirect()->route('order.index')->with('success_msg', 'Pesanan berhasil diperbarui');
     }
 
     /**

@@ -43,4 +43,9 @@ class LoginController extends Controller
         Auth::logout();
         return redirect()->route('login');
     }
+
+    public function showLoginForm()
+    {
+        return view('auth.masuk');
+    }
 }

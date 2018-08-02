@@ -53,11 +53,6 @@
           <i class="fa fa-calendar-check-o"></i> <span>Jadwal Flash Sale</span>
         </a>
       </li>
-      <li class="{{ $active == 'order.index' ? 'active' : '' }}">
-        <a href="{{ route('order.index') }}">
-          <i class="fa fa-pie-chart"></i> <span>Pesanan</span>
-        </a>
-      </li>
       @if(Auth::user()->role == 'member')
       <li class="{{ $active == 'order.create' ? 'active' : '' }}">
         <a href="{{ route('order.create') }}">
@@ -65,6 +60,11 @@
         </a>
       </li>
       @endif
+      <li class="{{ $active == 'order.index' ? 'active' : '' }}">
+        <a href="{{ route('order.index') }}">
+          <i class="fa fa-pie-chart"></i> <span>Pesanan</span>
+        </a>
+      </li>
       <li class="{{ $active == 'profile' ? 'active' : '' }}">
         <a href="{{ route('profile') }}">
           <i class="fa fa-user"></i> <span>Profil</span>

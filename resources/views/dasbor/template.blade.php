@@ -4,6 +4,7 @@
     <th>Waktu</th>
     <th>Produk</th>
     <th>Marketplace</th>
+    <th>No Resi</th>
     <th>Fee</th>
   </tr>
 </thead>
